@@ -3,12 +3,11 @@ var path = require('path')
 
 module.exports = {
     entry: {
-        react: "./react/entry.js"
+        reactWay: ['./react-way/entry.js']
     },
     output: {
-        // path: path.resolve(__dirname, './react'),
-        path: path.resolve(__dirname, './react/'),
-        publicPath: '/react/',
+        path: path.resolve(__dirname, './react-way/'),
+        publicPath: '/static/',
         filename: 'bundle.js'
     },
     module: {
