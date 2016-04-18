@@ -4,7 +4,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        react: ['./react/entry.js']
+        react: ['./react/entry.js'],
+        ng2: ['./ng2/entry.js']
     },
     output: {
         //real path
@@ -30,10 +31,16 @@ module.exports = {
         ]
     },
     plugins: [
+        //react
         new HtmlWebpackPlugin({
-            filename: 'index.html',
+            filename: 'react.html',
             template: './react/index.html',
-            inject: true
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'ng2.html',
+            template: './ng2/index.html',
+            inject: false
         })
     ]
 }
