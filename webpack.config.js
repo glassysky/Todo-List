@@ -4,8 +4,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        react: ['./react/entry.js'],
-        ng2: ['./ng2/entry.js']
+        react: ['./react/entry.js', 'webpack-hot-middleware/client'],
+        ng2: ['./ng2/entry.js', 'webpack-hot-middleware/client']
     },
     output: {
         //real path
@@ -31,6 +31,12 @@ module.exports = {
         ]
     },
     plugins: [
+        // Webpack 1.0
+        new webpack.optimize.OccurenceOrderPlugin(),
+        // Webpack 2.0 fixed this mispelling
+        // new webpack.optimize.OccurrenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
         //react
         new HtmlWebpackPlugin({
             filename: 'react.html',

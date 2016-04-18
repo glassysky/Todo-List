@@ -37,6 +37,8 @@ Object.keys(proxyTable).forEach(function (context) {
 
 app.use(devMiddleware);
 
+app.use(require('webpack-hot-middleware')(compiler));
+
 //static sources
 app.use('/static', express.static('./static'))
 
