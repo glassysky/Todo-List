@@ -1,12 +1,15 @@
-var webpack = require('webpack')
-var path = require('path')
+var webpack = require('webpack');
+var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
         react: ['./react/entry.js']
     },
     output: {
-        path: path.resolve(__dirname, './react/'),
+        //real path
+        path: path.resolve(__dirname),
+        //in memory
         publicPath: '/static/',
         filename: '[name].bundle.js'
     },
@@ -25,5 +28,12 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './react/index.html',
+            inject: true
+        })
+    ]
 }

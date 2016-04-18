@@ -4,23 +4,33 @@
 var express = require('express');
 var webpack = require('webpack');
 var http = require('http');
-var config = require('./webpack.config');
-
+var webpackConfig = require('./webpack.config');
 var showFilesMiddleware = require('./middlewares/showFilesMiddleware');
-
-var app = express();
 
 var port = process.env.PORT || 8080;
 
-app.set('port', port);
+var app = express();
+var compiler = webpack(webpackConfig);
 
-//static sources
-app.use(express.static('public'));
-
-app.get('/', showFilesMiddleware);
-
-http.createServer(app).listen(port, function(){
-    console.log('Server open on port:' + port);
+var devMiddleware = require('webpack-dev-middleware')(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    stats: {
+        colors: true,
+        chunks: false
+    }
 });
 
-module.exports = app;
+app.use(devMiddleware);
+
+//static sources
+app.use('/static', express.static('./static'))
+
+// app.get('/', showFilesMiddleware);
+
+module.exports = app.listen(port, function (err) {
+    if (err) {
+        console.log(err)
+        return
+    }
+    console.log('Listening at http://localhost:' + port + '\n')
+})
