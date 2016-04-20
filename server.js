@@ -24,30 +24,35 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
     }
 });
 
+var hotMiddleware = require('webpack-hot-middleware')(compiler);
+
+
+
+
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
-    var options = proxyTable[context]
+    var options = proxyTable[context];
     if (typeof options === 'string') {
-        options = { target: options }
+        options = { target: options };
     }
-    app.use(proxyMiddleware(context, options))
-})
+    app.use(proxyMiddleware(context, options));
+});
 
 // app.use(require('connect-history-api-fallback'));
 
 app.use(devMiddleware);
 
-app.use(require('webpack-hot-middleware')(compiler));
+app.use(hotMiddleware);
 
 //static sources
-app.use('/static', express.static('./static'))
+app.use('/static', express.static('./static'));
 
 // app.get('/', showFilesMiddleware);
 
 module.exports = app.listen(port, function (err) {
     if (err) {
-        console.log(err)
-        return
+        console.log(err);
+        return;
     }
-    console.log('Listening at http://localhost:' + port + '\n')
-})
+    console.log('Listening at http://localhost:' + port + '\n');
+});

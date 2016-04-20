@@ -4,8 +4,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        react: ['./react/entry.js', 'webpack-hot-middleware/client'],
-        ng2: ['./ng2/entry.js', 'webpack-hot-middleware/client']
+        react: ['./react/index.js', 'webpack-hot-middleware/client'],
+        ng2: ['./ng2/entry.js', 'webpack-hot-middleware/client'],
+        flux: ['./flux/js/app.js', 'webpack-hot-middleware/client']
     },
     output: {
         //real path
@@ -17,6 +18,10 @@ module.exports = {
     module: {
         loaders: [
             {
+                test: /\.css$/,
+                loader: 'style!css'
+            },
+            {
                 test: /\.scss$/,
                 loader: 'style!css!sass'
             },
@@ -27,6 +32,14 @@ module.exports = {
                 query: {
                     presets: [ 'react', 'es2015' ]
                 }
+            },
+            {
+                test: /\.png$/,
+                loader: "url-loader?limit=100000"
+            },
+            {
+                test: /\.jpg$/,
+                loader: "file-loader"
             }
         ]
     },
@@ -47,6 +60,11 @@ module.exports = {
             filename: 'ng2.html',
             template: './ng2/index.html',
             inject: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'flux.html',
+            template: './flux/index.html',
+            inject: false
         })
     ]
-}
+};
