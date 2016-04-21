@@ -17,6 +17,10 @@ function create(text) {
     };
 }
 
+function update(id, updates) {
+  _todos[id] = Object.assign({}, _todos[id], updates);
+}
+
 // update all items
 function updateAll(updates) {
     for (var id in _todos){
