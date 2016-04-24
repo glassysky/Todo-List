@@ -92,9 +92,30 @@ constants/TodoConstants.js
 
 注释中的内容简单说明了 keyMirror 的作用，更详细的内容请看[文档](https://www.npmjs.com/package/keymirror)
 
-下面我们来定义这个 store
+下面我们来定义这个 store  
 
+stores/TodoStore.js  
 
+    //引入之前定义过的 dispatcher 和 constants
+    import AppDispatcher from '../dispatcher/AppDispatcher';
+    import TodoConstants from '../constants/TodoConstants';
+
+    //引入一个事件触发器
+    import event from 'events';
+    let EventEmitter = event.EventEmitter;
+
+    //定义私有变量 _todos 对象，里面存放todo项包含内容
+    _todos = {};
+
+    //TodoStore 里包含了操作store的公共方法
+    var TodoStore = Object.assign({}, EventEmitter.prototype, {
+        getAll: function() {
+            return _todos;
+        }
+        ...
+    })
+
+_todos 作为一个保存了所有todo项目信息的私有对象只能通过 action 来改变。
 
 ## 参考链接
 

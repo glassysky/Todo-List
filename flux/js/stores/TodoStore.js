@@ -5,7 +5,7 @@ import TodoConstants from '../constants/TodoConstants';
 let EventEmitter = event.EventEmitter;
 let CHANGE_EVENT = 'change';
 
-let _todos = {};
+var _todos = {};
 
 // create items
 function create(text) {
@@ -42,7 +42,7 @@ function destroyCompleted() {
     }
 }
 
-var TodoStore = Object.assign({}, EventEmitter.prototype, {
+var TodoStore = Object.assign({} , EventEmitter.prototype, {
     // whether all item completed
     areAllComplete: function() {
         for (var id in _todos) {
