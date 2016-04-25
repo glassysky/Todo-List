@@ -4,11 +4,11 @@
 
 ## 1.简介
 
-Flux是单向数据流动的一个架构
-
-React可以看做一个声明式的View
-
+Flux是 __单向数据流动__ 的一个架构  
+React可以看做一个 __声明式__ 的View  
 Flux 的出现使代码变得具有 __可预见性__（输入固定的值，输出也是固定的，不会因为其他数据变化而发生变化） ，这对开发效率以及单元测试提供了很大的便利
+
+View 与用户的交互会传播一个 action ，action 内部分发已经注册过的回调函数，回调函数会改变 store 的值从而使页面刷新。
 
 这里通过分析官网上的[todo-list的教程](http://facebook.github.io/flux/docs/todo-list.html#content)的源码来深入Flux的思想
 
@@ -115,7 +115,8 @@ stores/TodoStore.js
         ...
     })
 
-    //在dispatcher里注册回调函数
+    //在dispatcher里用 register 方法注册回调函数
+    //注册过的函数用 dispatch 方法调用
     AppDispatcher.register(function(action) {
         var text;
 
@@ -136,6 +137,36 @@ stores/TodoStore.js
     module.exports = TodoStore;
 
 _todos 作为一个保存了所有todo项目信息的私有对象只能通过 action 来改变。
+
+## 5.创建 __Action__
+
+    //同样先引入这两个模块
+    import AppDispatcher from '../dispatcher/AppDispatcher';
+    import TodoConstants from '../constants/TodoConstants';
+
+    var TodoActions = {
+        create: function(text) {
+            AppDispatcher.dispatch({
+                actionType: TodoConstants.TODO_CREATE,
+                    text: text
+            });
+        },
+        ...
+    }
+
+让我们来梳理一下思路。  
+View 通过与用户的交互产生相应的 action ,action 通过 Dispatcher 的 dispatch 方法调用之前通过 Dispatcher 的 register 方法注册的回调函数，从而改变 store 的值进而使页面内容发生改变。  
+比如现在调用 TodoActions.create('write hello world');  
+Dispatcher 会调用 actionType 为 __TODO_CREATE__ 的方法。而这个方法之前通过 register 注册过了，在这里被调用；让我们回到 TodoStore.js 看一下这个方法做了些什么事情。  
+首先清除 text 两端的空格，如果非空则调用create和TodoStore.emitChange方法，分别用来创建新的 TODO_ITEM 项目和传播 change 事件。  
+监听函数接收到 change 事件后会触发相应视图更新（具体可见 TodoApp.react.js部分）
+
+## 6.补全视图
+
+详见 components 内的js代码。
+
+
+欢迎指正~
 
 ## 参考链接
 
