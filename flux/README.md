@@ -115,6 +115,26 @@ stores/TodoStore.js
         ...
     })
 
+    //在dispatcher里注册回调函数
+    AppDispatcher.register(function(action) {
+        var text;
+
+        switch(action.actionType) {
+            //用 TODO_CREATE 操作举例
+            case TodoConstants.TODO_CREATE:
+                text = action.text.trim();
+                if (text !== '') {
+                    create(text);
+                    //以闭包的形式来修改store内部的值
+                    TodoStore.emitChange();
+                }
+                break;
+            ...
+        }
+    });
+
+    module.exports = TodoStore;
+
 _todos 作为一个保存了所有todo项目信息的私有对象只能通过 action 来改变。
 
 ## 参考链接
