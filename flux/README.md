@@ -4,11 +4,16 @@
 
 ## 1.简介
 
-Flux是 __单向数据流动__ 的一个架构  
+Flux是 __单向数据流动__ 的一个架构
+
+![Alt text](http://facebook.github.io/flux/img/flux-simple-f8-diagram-explained-1300w.png)
+
 React可以看做一个 __声明式__ 的View  
 Flux 的出现使代码变得具有 __可预见性__（输入固定的值，输出也是固定的，不会因为其他数据变化而发生变化） ，这对开发效率以及单元测试提供了很大的便利
 
 View 与用户的交互会传播一个 action ，action 内部分发已经注册过的回调函数，回调函数会改变 store 的值从而使页面刷新。
+
+![Alt text](https://github.com/facebook/flux/blob/master/docs/img/flux-diagram-white-background.png?raw=true)
 
 这里通过分析官网上的[todo-list的教程](http://facebook.github.io/flux/docs/todo-list.html#content)的源码来深入Flux的思想
 
@@ -165,6 +170,9 @@ Dispatcher 会调用 actionType 为 __TODO_CREATE__ 的方法。而这个方法�
 
 详见 components 内的js代码。
 
+## 源码地址
+
+[https://github.com/glassysky/Todo-List/tree/master/flux](https://github.com/glassysky/Todo-List/tree/master/flux)
 
 欢迎指正~
 
