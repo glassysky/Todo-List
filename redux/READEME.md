@@ -15,3 +15,8 @@ notes:
     - getState be used to get state value form store
     - dispatch be used to dispatch actions
     - subscribe will be called when an action was dispatched
+- implementing store form scratch
+    - every listener will be called if any dispatch run
+    - reducer will be return in case we want to unsubscribe it
+- react counter example
+    - 
