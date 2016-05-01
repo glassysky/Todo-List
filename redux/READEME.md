@@ -19,4 +19,8 @@ notes:
     - every listener will be called if any dispatch run
     - reducer will be return in case we want to unsubscribe it
 - react counter example
-    - 
+    - render application with react
+- avoiding array mutations with concat, slice, and ...spread
+    - use as method ? return what you want to get finally
+- avoding object mutations with object.assign and ...spread
+- write a todo list reducer
