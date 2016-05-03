@@ -25,5 +25,5 @@ notes:
 - avoding object mutations with object.assign and ...spread
 - write a todo list reducer
 - connect() & Provider
-- pass 'action creator into dispatch function'
+- pass 'action creator' into dispatch function
 - redux dev tools(chrome plugin)
